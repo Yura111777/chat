@@ -95,6 +95,9 @@ body{
     .sidebar{
       flex: 1;
       background: #282c34;
+      .before{
+        display: none;
+      }
       @include mobile{
         position: absolute;
         height: 100%;
@@ -104,8 +107,8 @@ body{
         width: 50px;
         background: transparent;
         transition: background .5s ease-in-out;
-        &:before{
-          content: '';
+        .before{
+          display: block;
           background-image: url("./img/menu.png");
           background-position: center center;
           background-size: auto 50%;
@@ -118,6 +121,10 @@ body{
           background-color: #fff;
           cursor: pointer;
           transition: background .5s ease-in-out;
+          z-index: 1;
+          opacity: 1;
+          cursor: pointer;
+          pointer-events: auto;
         }
         * {
           transition: opacity .5s ease-in-out;
@@ -128,7 +135,8 @@ body{
           background: #282c34;
           transition: background .5s ease-in-out;
           overflow-y: auto;
-          &:before{
+          width: auto;
+          .before{
             background-image: url("./img/close.png");
             transition: background .5s ease-in-out;
           }
