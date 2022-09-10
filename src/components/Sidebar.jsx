@@ -1,13 +1,14 @@
 import Navbar from "./Navbar";
-import React, {useState} from 'react';
+import React, {useContext, useState} from 'react';
 import Search from "./Search";
 import Chats from "./Chats";
+import {ActiveContext} from "../context/ActiveContext";
 
 function Sidebar(props) {
-    const [active, setActive] = useState(false)
+    const {currentActive, setCurrentActive} = useContext(ActiveContext)
     return (
-        <div className={`sidebar ${active && 'active'}`}>
-            <div className="before" onClick={() => setActive(!active)}></div>
+        <div className={`sidebar ${currentActive && 'active'}`}>
+            <div className="before" onClick={() => setCurrentActive(!currentActive)}></div>
             <Navbar/>
             <Search/>
             <Chats/>

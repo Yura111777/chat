@@ -2,6 +2,7 @@ import React, {useContext, useState} from 'react';
 import { collection, query, where, getDoc, getDocs, setDoc, doc, updateDoc, serverTimestamp } from "firebase/firestore";
 import {db} from '../firebase'
 import {AuthContext} from "../context/AuthContext";
+import {ActiveContext} from "../context/ActiveContext";
 
 
 function Search(props) {
@@ -9,6 +10,7 @@ function Search(props) {
     const [user, setUser] = useState(null)
     const [err, setUErr] = useState(false)
     const {currentUser} = useContext(AuthContext)
+    const {currentActive, setCurrentActive} = useContext(ActiveContext)
     const handleSearch = async () => {
         const q = query(collection(db, 'users'),where('displayName','==', userName))
         try{
@@ -22,9 +24,9 @@ function Search(props) {
         }
 
     }
-    const handleKey = (e) => {
+    const handleKey = async (e) => {
         e.preventDefault()
-        handleSearch();
+        await handleSearch();
     }
     const handleSelect = async () => {
         // check if chats group exits, if not create new
@@ -51,8 +53,8 @@ function Search(props) {
                     },
                     [combinedId+".date"]:serverTimestamp()
                 })
-
             }
+            setCurrentActive(!currentActive)
         } catch (e) {
 
         }
@@ -68,7 +70,7 @@ function Search(props) {
                     <input type="text" placeholder='Find a user' value={userName}  onChange={(e) => setUserName(e.target.value)}/>
                 </form>
             </div>
-            {user && <div className="user-chat" onClick={() => handleSelect}>
+            {user && <div className="user-chat" onClick={() => handleSelect()}>
                 {console.log(user)}
                 <img src={user.photoUrl} alt=""/>
                 <div className="user-chat-info">
