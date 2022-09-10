@@ -9,7 +9,7 @@ import {Link, useNavigate} from "react-router-dom";
 
 function Register(props) {
     const [error, setError] = useState(false)
-    const [err, setErr] = useState(false)
+    const [err, setErr] = useState(null)
     const navigate = useNavigate()
     const [image,setImage] = useState(null)
     const handleSubmit = async (e)=> {
@@ -75,7 +75,7 @@ function Register(props) {
                     </label>
                     <button>Sign up</button>
                 </form>
-                {error &&  (<span>{err.message}</span>) }
+                {error &&  (<span>{err}</span>) }
                 <p>
                     Do you have an account? <Link to='/login'>Login</Link>
                 </p>
