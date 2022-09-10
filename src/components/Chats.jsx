@@ -27,10 +27,10 @@ function Chats(props) {
     }
     return (
         <div className='chats'>
+
             {Object.entries(chats)?.sort((a,b) => b[1].date - a[1].date).map(chat => {
                 return (
                     <div className="user-chat" key={chat[0]} onClick={() => handleSelect(chat[1].userInfo)}>
-                        {console.log(chat[1])}
                         <img src={chat[1].userInfo.photoUrl} alt="user avatar"/>
                         <div className="user-chat-info">
                             <span>{chat[1].userInfo.displayName}</span>

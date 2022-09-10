@@ -10,7 +10,6 @@ function Search(props) {
     const [user, setUser] = useState(null)
     const [err, setUErr] = useState(false)
     const {currentUser} = useContext(AuthContext)
-    const {currentActive, setCurrentActive} = useContext(ActiveContext)
     const handleSearch = async () => {
         const q = query(collection(db, 'users'),where('displayName','==', userName))
         try{
@@ -45,18 +44,20 @@ function Search(props) {
                     },
                     [combinedId+".date"]:serverTimestamp()
                 })
-                await updateDoc(doc(db, 'userChat', user.uid), {
+                // console.log(user, '=====================')
+                const resss = await updateDoc(doc(db, 'userChat', user.uid), {
                     [combinedId+".userInfo"]: {
                         uid: currentUser.uid,
                         displayName: currentUser.displayName,
-                        photoUrl: currentUser.photoUrl
+                        photoUrl: currentUser.photoURL
                     },
                     [combinedId+".date"]:serverTimestamp()
                 })
+                console.log(resss,1111111111111111111111)
             }
-            setCurrentActive(!currentActive)
-        } catch (e) {
 
+        } catch (e) {
+            console.log(e)
         }
 
         setUser(null)
@@ -71,7 +72,6 @@ function Search(props) {
                 </form>
             </div>
             {user && <div className="user-chat" onClick={() => handleSelect()}>
-                {console.log(user)}
                 <img src={user.photoUrl} alt=""/>
                 <div className="user-chat-info">
                     <span>{user.displayName}</span>
