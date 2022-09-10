@@ -23,7 +23,8 @@ function Search(props) {
 
     }
     const handleKey = (e) => {
-        e.code === 'Enter' && handleSearch();
+        e.preventDefault()
+        handleSearch();
     }
     const handleSelect = async () => {
         // check if chats group exits, if not create new
@@ -63,7 +64,9 @@ function Search(props) {
     return (
         <div className='search'>
             <div className="search-form">
-                <input type="text" placeholder='Find a user' value={userName} onKeyDown={handleKey} onChange={(e) => setUserName(e.target.value)}/>
+                <form onSubmit={handleKey}>
+                    <input type="text" placeholder='Find a user' value={userName}  onChange={(e) => setUserName(e.target.value)}/>
+                </form>
             </div>
             {user && <div className="user-chat" onClick={() => handleSelect}>
                 {console.log(user)}

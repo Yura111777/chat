@@ -9,7 +9,9 @@ import {Link, useNavigate} from "react-router-dom";
 
 function Register(props) {
     const [error, setError] = useState(false)
+    const [err, setErr] = useState(false)
     const navigate = useNavigate()
+    const [image,setImage] = useState(null)
     const handleSubmit = async (e)=> {
         e.preventDefault()
         const displayName = e.target[0].value;
@@ -26,6 +28,7 @@ function Register(props) {
             uploadTask.on(
                 (error) => {
                     setError(true)
+                    setErr(error.message)
                 },
                 () => {
                     getDownloadURL(uploadTask.snapshot.ref).then(async (downloadURL) => {
@@ -46,7 +49,8 @@ function Register(props) {
             );
 
         } catch(err){
-            setError(err)
+            setError(true)
+            setErr(err.message)
         }
 
 
@@ -64,14 +68,14 @@ function Register(props) {
                     <input type="text" placeholder='Display name'/>
                     <input type="email" placeholder='Email'/>
                     <input type="password" placeholder='Password'/>
-                    <input type="file" id='file' className='file'/>
+                    <input type="file" id='file' onChange={(e) => setImage(e.target.files[0].name)} className='file'/>
                     <label htmlFor="file" className='file-folder'>
                         <img src={pic} width='40' alt="label avatar"/>
-                        Add an avatar
+                        {image ? (<span className='img-name'>{image}</span>)  : 'Add an avatar'}
                     </label>
                     <button>Sign up</button>
                 </form>
-                {error &&  <span>{error.message}</span> }
+                {error &&  (<span>{err.message}</span>) }
                 <p>
                     Do you have an account? <Link to='/login'>Login</Link>
                 </p>

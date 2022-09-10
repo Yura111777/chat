@@ -66,6 +66,14 @@ body{
           img{
             margin-right: 10px;
           }
+          .img-name{
+            display: block;
+            width: 200px;
+            overflow: hidden;
+            float: none;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+          }
         }
       }
     }
