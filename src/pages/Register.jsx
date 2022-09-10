@@ -46,7 +46,7 @@ function Register(props) {
             );
 
         } catch(err){
-            setError(true)
+            setError(err)
         }
 
 
@@ -71,7 +71,7 @@ function Register(props) {
                     </label>
                     <button>Sign up</button>
                 </form>
-                {error && <span>Something went wrong!</span> }
+                {error &&  <span>{error.message}</span> }
                 <p>
                     Do you have an account? <Link to='/login'>Login</Link>
                 </p>
