@@ -32,15 +32,16 @@ function Register(props) {
                 },
                 () => {
                     getDownloadURL(uploadTask.snapshot.ref).then(async (downloadURL) => {
+                        const img = file ? downloadURL : '';
                         await updateProfile(res.user,{
                             displayName,
-                            photoURL: downloadURL
+                            photoURL: img,
                         })
                         await setDoc(doc(db, 'users', res.user.uid), {
                             uid: res.user.uid,
                             displayName,
                             email,
-                            photoUrl: downloadURL,
+                            photoUrl: img,
                         })
                         await setDoc(doc(db, 'userChat', res.user.uid), {})
                         navigate('/')

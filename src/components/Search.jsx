@@ -3,6 +3,7 @@ import { collection, query, where, getDoc, getDocs, setDoc, doc, updateDoc, serv
 import {db} from '../firebase'
 import {AuthContext} from "../context/AuthContext";
 import {ActiveContext} from "../context/ActiveContext";
+import defaulttpic from "../img/default.svg";
 
 
 function Search(props) {
@@ -44,7 +45,6 @@ function Search(props) {
                     },
                     [combinedId+".date"]:serverTimestamp()
                 })
-                // console.log(user, '=====================')
                 const resss = await updateDoc(doc(db, 'userChat', user.uid), {
                     [combinedId+".userInfo"]: {
                         uid: currentUser.uid,
@@ -53,7 +53,6 @@ function Search(props) {
                     },
                     [combinedId+".date"]:serverTimestamp()
                 })
-                console.log(resss,1111111111111111111111)
             }
 
         } catch (e) {
@@ -72,7 +71,7 @@ function Search(props) {
                 </form>
             </div>
             {user && <div className="user-chat" onClick={() => handleSelect()}>
-                <img src={user.photoUrl} alt=""/>
+                <img src={user.photoUrl ? user.photoUrl : defaulttpic} alt=""/>
                 <div className="user-chat-info">
                     <span>{user.displayName}</span>
                 </div>

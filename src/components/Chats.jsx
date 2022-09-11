@@ -4,6 +4,7 @@ import {db} from "../firebase";
 import {AuthContext} from "../context/AuthContext";
 import {ChatContext} from "../context/ChatContext";
 import {ActiveContext} from "../context/ActiveContext";
+import defaultpic from '../img/default.svg'
 
 function Chats(props) {
     const [chats,setChats] = useState([])
@@ -31,7 +32,7 @@ function Chats(props) {
             {Object.entries(chats)?.sort((a,b) => b[1].date - a[1].date).map(chat => {
                 return (
                     <div className="user-chat" key={chat[0]} onClick={() => handleSelect(chat[1].userInfo)}>
-                        <img src={chat[1].userInfo.photoUrl} alt="user avatar"/>
+                        {<img src={chat[1].userInfo.photoUrl ? chat[1].userInfo.photoUrl : defaultpic} alt="user avatar"/>}
                         <div className="user-chat-info">
                             <span>{chat[1].userInfo.displayName}</span>
                             <p>{chat[1].lastMessage?.text}</p>
